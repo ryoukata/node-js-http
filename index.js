@@ -10,12 +10,25 @@ const server = http.createServer((req, res) => {
 
   switch (req.method) {
     case 'GET':
-      // 以下３行はhtmlファイルを読み込む場合
-      // const fs = require('fs');
-      // const rs = fs.createReadStream('./form.html');
-      // rs.pipe(res);
-      // 以下はpugファイルを読み込む場合
-      res.write(pug.renderFile('./form.pug'));
+      if (req.url === '/enquetes/yaki-shabu') {
+        res.write(pug.renderFile('./form.pug', {
+          path: req.url,
+          firstItem: '焼き肉',
+          secondItem: 'しゃぶしゃぶ'
+        }));
+      } else if (req.url === '/enquetes/rice-bread') { 
+        res.write(pug.renderFile('./form.pug', {
+          path: req.url,
+          firstItem: 'ご飯',
+          secondItem: 'パン'
+        }));
+      } else if (req.url === '/enquetes/sushi-pizza') {
+        res.write(pug.renderFile('./form.pug', {
+          path: req.url,
+          firstItem: '寿司',
+          secondItem: 'ピザ'
+        }));
+      }
       res.end();
       break;
     case 'POST':
